@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import { ThemeProvider } from "@/components/theme-provider";
 import RootLayout from "@/layouts/root-layout";
 import HomePage from "@/pages/home";
+import AdminCoursesPage from "@/pages/admin/courses";
 import AdminEnrollmentsPage from "@/pages/admin/enrollments";
 
 import "./index.css";
@@ -12,9 +13,12 @@ import "./index.css";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: (
+      <RootLayout firstName="ภาคิน" lastName="วัฒน์เอก" studentId="680610703" />
+    ),
     children: [
       { index: true, element: <HomePage /> },
+      { path: "admin/courses", element: <AdminCoursesPage /> },
       { path: "admin/enrollments", element: <AdminEnrollmentsPage /> },
     ],
   },
@@ -25,5 +29,5 @@ createRoot(document.getElementById("root")!).render(
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <RouterProvider router={router} />
     </ThemeProvider>
-  </StrictMode>
+  </StrictMode>,
 );

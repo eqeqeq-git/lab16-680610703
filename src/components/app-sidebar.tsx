@@ -23,6 +23,7 @@ const ROLE = "ADMIN";
 
 const items = [
   { title: "หน้าแรก", url: "/", icon: Home },
+  { title: "จัดการวิชาเรียน", url: "/admin/courses", icon: BookOpen },
   { title: "จัดการการลงทะเบียน", url: "/admin/enrollments", icon: BookOpen },
 ];
 
@@ -30,13 +31,17 @@ export function AppSidebar() {
   const location = useLocation();
 
   return (
-    <Sidebar>
-      <SidebarHeader>
-        <div className="px-2 py-1 text-sm font-semibold">CPE & ISNE</div>
+    <Sidebar className="border-r border-border bg-sidebar text-sidebar-foreground">
+      <SidebarHeader className="border-b border-border bg-sidebar">
+        <div className="px-3 py-3 text-sm font-semibold tracking-wide text-sidebar-foreground">
+          CPE & ISNE
+        </div>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-sidebar p-2">
         <SidebarGroup>
-          <SidebarGroupLabel>เมนูหลัก</SidebarGroupLabel>
+          <SidebarGroupLabel className="px-2 text-muted-foreground">
+            เมนูหลัก
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
@@ -44,8 +49,13 @@ export function AppSidebar() {
                   <SidebarMenuButton
                     isActive={location.pathname === item.url}
                     render={<Link to={item.url} />}
+                    className={
+                      location.pathname === item.url
+                        ? "bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary"
+                        : "text-sidebar-foreground hover:bg-muted hover:text-foreground"
+                    }
                   >
-                    <item.icon />
+                    <item.icon className="h-4 w-4" />
                     <span>{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -55,18 +65,20 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter>
-        <Separator className="mb-2" />
+      <SidebarFooter className="border-t border-border bg-sidebar p-3">
         <div className="flex items-center gap-3 px-2 py-1.5">
-          <Avatar>
-
+          <Avatar className="h-9 w-9 border border-border bg-muted">
             <AvatarImage src="/profile.svg" alt={NICKNAME} />
             <AvatarFallback>{NICKNAME.slice(0, 2)}</AvatarFallback>
           </Avatar>
           <div className="flex min-w-0 flex-col">
-            
-            <span className="truncate text-sm font-medium">{NICKNAME}</span>
-            <Badge variant="outline" className="w-fit text-[10px]">
+            <span className="truncate text-sm font-medium text-sidebar-foreground">
+              {NICKNAME}
+            </span>
+            <Badge
+              variant="outline"
+              className="w-fit border-border bg-transparent text-[10px] text-muted-foreground"
+            >
               {ROLE}
             </Badge>
           </div>
